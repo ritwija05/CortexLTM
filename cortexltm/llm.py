@@ -10,7 +10,7 @@ load_dotenv(override=True)
 
 _client: Groq | None = None
 
-_DEFAULT_CHAT_MODEL = "llama-3.1-8b-instant"
+_DEFAULT_CHAT_MODEL = "llama-3.3-70b-versatile"
 _DEFAULT_SUMMARY_MODEL = "llama-3.1-8b-instant"
 
 # cheap safety caps (chars, not tokens)
@@ -123,8 +123,8 @@ def chat_reply(
     resp = client.chat.completions.create(
         model=model,
         messages=msgs,
-        temperature=0.6,
-        max_tokens=600,
+        temperature=0.7,
+        max_tokens=1024,
     )
 
     out = (resp.choices[0].message.content or "").strip()

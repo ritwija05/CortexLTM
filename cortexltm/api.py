@@ -11,6 +11,7 @@ from typing import Any
 from uuid import UUID
 
 from fastapi import FastAPI, Header, HTTPException, Query, Request, Response
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field
 
@@ -28,6 +29,13 @@ SEMANTIC_CUE_REGEX = re.compile(
 )
 
 app = FastAPI(title="CortexLTM API", version="0.1.0")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 _AUTH_CACHE_LOCK = threading.Lock()
 _AUTH_USER_CACHE: dict[str, tuple[str, float]] = {}
 
